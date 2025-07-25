@@ -14,6 +14,10 @@
             --border-color: #444;
         }
 
+        html {
+            scroll-behavior: smooth; /* برای اسکرول نرم */
+        }
+
         body {
             font-family: 'Vazirmatn', sans-serif;
             margin: 0;
@@ -47,37 +51,92 @@
             font-weight: 300;
         }
 
+        /* --- استایل نوار ناوبری --- */
         nav {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
+            align-items: center;
             padding: 1rem;
-            background: rgba(26, 26, 26, 0.85); /* نیمه‌شفاف */
-            backdrop-filter: blur(10px); /* افکت بلور شیشه‌ای */
+            background: rgba(26, 26, 26, 0.85);
+            backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
             z-index: 100;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s ease;
+            min-height: 48px; /* ارتفاع ثابت برای جلوگیری از پرش صفحه */
+        }
+        
+        .nav-full {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
-        nav a {
+        .nav-full a {
             text-decoration: none;
             color: var(--primary-color);
             font-weight: 400;
             font-size: 1rem;
             padding: 0.5rem 1rem;
-            border-radius: 25px; /* گردی بیشتر */
+            border-radius: 25px;
             transition: all 0.3s ease;
             border: 1px solid transparent;
         }
 
-        nav a:hover, nav a.active {
+        .nav-full a:hover, .nav-full a.active {
             background: var(--primary-color);
             color: var(--background-color);
             transform: translateY(-2px);
             box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
+        
+        /* استایل حالت نمایش تک دسته فعال */
+        .nav-active-category {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-active-category span {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        #back-to-menu {
+            background: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        #back-to-menu:hover {
+            background: var(--primary-color);
+            color: var(--background-color);
+        }
+
+        /* کلاس‌های کمکی برای پنهان و آشکار کردن */
+        .hidden {
+            display: none !important;
+        }
+        .fade-out {
+            opacity: 0;
+            transform: scale(0.9);
+            pointer-events: none;
+        }
+
+        /* --- پایان استایل نوار ناوبری --- */
 
         .container {
             padding: 1.5rem 1rem;
@@ -93,6 +152,7 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
             border: 1px solid var(--border-color);
             transition: transform 0.3s ease;
+            scroll-margin-top: 100px; /* ایجاد فاصله از بالای صفحه هنگام پرش به بخش‌ها */
         }
 
         section:hover {
@@ -116,10 +176,9 @@
             margin: 0;
         }
 
-        /* این بخش اصلی‌ترین تغییر برای چیدمان است */
         ul li {
             display: flex;
-            justify-content: space-between; /* نام و قیمت را به طرفین می‌چسباند */
+            justify-content: space-between;
             align-items: center;
             padding: 1rem 0.5rem;
             border-bottom: 1px dotted var(--border-color);
@@ -135,11 +194,11 @@
             color: var(--primary-color);
             font-weight: 700;
             font-size: 1.2rem;
-            direction: ltr; /* برای نمایش صحیح اعداد و واحد پول */
+            direction: ltr;
         }
         
         .price::before {
-            content: "تومان "; /* افزودن واحد پول */
+            content: "تومان ";
             font-weight: 300;
             font-size: 0.8rem;
             margin-left: 5px;
@@ -147,7 +206,7 @@
             opacity: 0.7;
         }
         .price[data-empty="true"]::before {
-            content: ""; /* حذف کلمه تومان برای موارد ناموجود */
+            content: "";
         }
 
 
@@ -196,14 +255,20 @@
     </header>
 
     <nav>
-        <a href="#chelo">🍛 چلو</a>
-        <a href="#kebab">🥩 کباب‌ها</a>
-        <a href="#breakfast">🍳 صبحانه</a>
-        <a href="#kebab-kateh">🍽️ کته کباب</a>
-        <a href="#cold-drinks">🥤 نوشیدنی سرد</a>
-        <a href="#hot-drinks">☕ نوشیدنی گرم</a>
-        <a href="#starters">🥗 پیش غذا</a>
-        <a href="#kateh">🍚 کته</a>
+        <div class="nav-full">
+            <a href="#chelo">🍛 چلو</a>
+            <a href="#kebab">🥩 کباب‌ها</a>
+            <a href="#breakfast">🍳 صبحانه</a>
+            <a href="#kebab-kateh">🍽️ کته کباب</a>
+            <a href="#cold-drinks">🥤 نوشیدنی سرد</a>
+            <a href="#hot-drinks">☕ نوشیدنی گرم</a>
+            <a href="#starters">🥗 پیش غذا</a>
+            <a href="#kateh">🍚 کته</a>
+        </div>
+        <div class="nav-active-category hidden">
+            <span id="active-category-name"></span>
+            <button id="back-to-menu">بازگشت به منوی کامل</button>
+        </div>
     </nav>
 
     <div class="container">
@@ -323,5 +388,97 @@
             <a class="btn" href="https://nshn.ir/87rb1uSlQFGW-G" target="_blank">🗺️ مسیریابی در نشان</a>
         </p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const nav = document.querySelector('nav');
+            const navFull = document.querySelector('.nav-full');
+            const navActiveCategory = document.querySelector('.nav-active-category');
+            const activeCategoryName = document.getElementById('active-category-name');
+            const backToMenuBtn = document.getElementById('back-to-menu');
+            const navLinks = document.querySelectorAll('.nav-full a');
+            const sections = document.querySelectorAll('section');
+
+            let isFullNavVisible = true;
+
+            // تابع برای تغییر حالت نمایش نوار
+            function showActiveCategoryView(categoryName) {
+                if (isFullNavVisible) {
+                    navFull.classList.add('fade-out');
+                    
+                    setTimeout(() => {
+                        navFull.classList.add('hidden');
+                        navActiveCategory.classList.remove('hidden');
+                        navActiveCategory.classList.remove('fade-out');
+                        isFullNavVisible = false;
+                    }, 300); // مطابق با زمان انیمیشن
+                }
+                activeCategoryName.innerHTML = categoryName;
+            }
+
+            function showFullNavView() {
+                if (!isFullNavVisible) {
+                    navActiveCategory.classList.add('fade-out');
+
+                    setTimeout(() => {
+                        navActiveCategory.classList.add('hidden');
+                        navFull.classList.remove('hidden');
+                        navFull.classList.remove('fade-out');
+                        isFullNavVisible = true;
+                    }, 300);
+                }
+            }
+
+            // کلیک روی دکمه بازگشت
+            backToMenuBtn.addEventListener('click', () => {
+                showFullNavView();
+                 // به بالای صفحه اسکرول کن
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            
+            // کلیک روی لینک‌های منو
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const categoryName = this.innerHTML;
+                    showActiveCategoryView(categoryName);
+                });
+            });
+
+            // تشخیص بخش فعال هنگام اسکرول با Intersection Observer
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.4 // وقتی 40% بخش دیده شد، فعال شود
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const link = document.querySelector(`.nav-full a[href="#${entry.target.id}"]`);
+                        if (link) {
+                            showActiveCategoryView(link.innerHTML);
+                            // فعال کردن لینک در منوی کامل (برای وقتی که کاربر برمی‌گردد)
+                            navLinks.forEach(l => l.classList.remove('active'));
+                            link.classList.add('active');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // اگر کاربر به بالای صفحه اسکرول کرد، منوی کامل را نشان بده
+            const headerObserver = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    showFullNavView();
+                    navLinks.forEach(l => l.classList.remove('active'));
+                }
+            }, { threshold: 0.9 });
+
+            headerObserver.observe(document.querySelector('header'));
+        });
+    </script>
 </body>
 </html>
