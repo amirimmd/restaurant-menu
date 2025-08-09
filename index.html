@@ -5,19 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منوی کافه رستوران پل شاهپور</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #c59d5f; /* طلایی */
-            --background-color: #1a1a1a; /* خاکستری خیلی تیره */
-            --surface-color: #2c2c2c; /* خاکستری تیره‌تر برای کارت‌ها */
-            --text-color: #f0f0f0; /* کرم روشن */
+            --primary-color: #c59d5f; /* Gold */
+            --background-color: #1a1a1a; /* Dark gray */
+            --surface-color: #2c2c2c; /* Darker gray for cards */
+            --text-color: #f0f0f0; /* Light cream */
             --border-color: #444;
+            --accent-color: #8b6d3f; /* Darker gold for accents */
+            --shadow-color: rgba(0, 0, 0, 0.5);
         }
-
         html {
-            scroll-behavior: smooth; /* برای اسکرول نرم */
+            scroll-behavior: smooth;
         }
-
         body {
             font-family: 'Vazirmatn', sans-serif;
             margin: 0;
@@ -26,74 +27,95 @@
             background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23333" fill-opacity="0.1"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
             color: var(--text-color);
             line-height: 1.9;
+            overflow-x: hidden;
         }
-
         header {
-            background: var(--background-color);
+            background: linear-gradient(to bottom, var(--background-color), var(--surface-color));
             color: white;
-            padding: 2rem 1rem;
+            padding: 3rem 1rem;
             text-align: center;
-            border-bottom: 3px solid var(--primary-color);
+            border-bottom: 4px solid var(--primary-color);
+            box-shadow: 0 4px 20px var(--shadow-color);
+            animation: headerGlow 2s ease-in-out infinite alternate;
         }
-
+        @keyframes headerGlow {
+            from { box-shadow: 0 4px 20px var(--shadow-color); }
+            to { box-shadow: 0 4px 30px rgba(197, 157, 95, 0.3); }
+        }
         header h1 {
             margin: 0;
-            font-size: 2.8rem;
+            font-size: 3rem;
             font-weight: 700;
             color: var(--primary-color);
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
+            font-family: 'Playfair Display', serif;
         }
-
         .slogan {
-            font-size: 1.2rem;
-            margin-top: 0.5rem;
-            opacity: 0.8;
+            font-size: 1.3rem;
+            margin-top: 0.7rem;
+            opacity: 0.85;
             font-weight: 300;
+            animation: fadeIn 1.5s ease-out;
         }
-
-        /* --- استایل نوار ناوبری --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 0.85; transform: translateY(0); }
+        }
+        /* Navigation styles */
         nav {
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 1rem;
-            background: rgba(26, 26, 26, 0.85);
-            backdrop-filter: blur(10px);
+            background: rgba(26, 26, 26, 0.9);
+            backdrop-filter: blur(15px);
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            transition: all 0.4s ease;
-            min-height: 48px; /* ارتفاع ثابت برای جلوگیری از پرش صفحه */
+            box-shadow: 0 6px 15px var(--shadow-color);
+            transition: all 0.5s ease;
+            min-height: 60px;
         }
-        
         .nav-full {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            gap: 20px;
+            transition: opacity 0.4s ease, transform 0.4s ease;
         }
-
         .nav-full a {
             text-decoration: none;
             color: var(--primary-color);
-            font-weight: 400;
-            font-size: 1rem;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
+            font-weight: 500;
+            font-size: 1.1rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            transition: all 0.4s ease;
+            border: 1px solid var(--accent-color);
+            background: linear-gradient(to right, transparent, rgba(197, 157, 95, 0.1));
+            position: relative;
+            overflow: hidden;
         }
-
+        .nav-full a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        .nav-full a:hover::before {
+            left: 100%;
+        }
         .nav-full a:hover, .nav-full a.active {
             background: var(--primary-color);
             color: var(--background-color);
-            transform: translateY(-2px);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 4px 10px rgba(197, 157, 95, 0.4);
         }
-        
-        /* استایل حالت نمایش تک دسته فعال */
+        /* Active category nav style */
         .nav-active-category {
             display: flex;
             justify-content: space-between;
@@ -101,147 +123,185 @@
             width: 100%;
             max-width: 900px;
             margin: 0 auto;
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: opacity 0.4s ease, transform 0.4s ease;
         }
-
         .nav-active-category span {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--primary-color);
+            text-shadow: 1px 1px 3px var(--shadow-color);
         }
-
         #back-to-menu {
             background: transparent;
-            border: 1px solid var(--primary-color);
+            border: 2px solid var(--primary-color);
             color: var(--primary-color);
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
             cursor: pointer;
             font-family: 'Vazirmatn', sans-serif;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
+            font-size: 1rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        #back-to-menu::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        #back-to-menu:hover::before {
+            left: 100%;
         }
         #back-to-menu:hover {
             background: var(--primary-color);
             color: var(--background-color);
+            transform: scale(1.05);
         }
-
-        /* کلاس‌های کمکی برای پنهان و آشکار کردن */
+        /* Helper classes */
         .hidden {
             display: none !important;
         }
         .fade-out {
             opacity: 0;
-            transform: scale(0.9);
+            transform: scale(0.95);
             pointer-events: none;
         }
-
-        /* --- پایان استایل نوار ناوبری --- */
-
         .container {
-            padding: 1.5rem 1rem;
+            padding: 2rem 1rem;
             max-width: 900px;
             margin: 2rem auto;
         }
-        
         section {
-            background: var(--surface-color);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border-color);
-            transition: transform 0.3s ease;
-            scroll-margin-top: 100px; /* ایجاد فاصله از بالای صفحه هنگام پرش به بخش‌ها */
+            background: linear-gradient(to bottom, var(--surface-color), #242424);
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px var(--shadow-color);
+            border: 1px solid var(--accent-color);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            scroll-margin-top: 120px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
-
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
         section:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(197, 157, 95, 0.2);
         }
-
         section h2 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 700;
             color: var(--primary-color);
             margin-top: 0;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.7rem;
-            border-bottom: 1px solid var(--primary-color);
+            margin-bottom: 1.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px dashed var(--accent-color);
             text-align: center;
+            text-shadow: 2px 2px 4px var(--shadow-color);
+            font-family: 'Playfair Display', serif;
         }
-
         ul {
             list-style-type: none;
             padding: 0;
             margin: 0;
         }
-
         ul li {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0.5rem;
+            padding: 1.2rem 0.6rem;
             border-bottom: 1px dotted var(--border-color);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 400;
+            transition: background 0.3s ease, transform 0.3s ease;
+            position: relative;
         }
-        
+        ul li:hover {
+            background: rgba(197, 157, 95, 0.1);
+            transform: translateX(5px);
+        }
         ul li:last-child {
             border-bottom: none;
         }
-
         .price {
             color: var(--primary-color);
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             direction: ltr;
         }
-        
         .price::before {
             content: "تومان ";
             font-weight: 300;
-            font-size: 0.8rem;
-            margin-left: 5px;
+            font-size: 0.9rem;
+            margin-left: 6px;
             color: var(--text-color);
-            opacity: 0.7;
+            opacity: 0.8;
         }
         .price[data-empty="true"]::before {
             content: "";
         }
-
-
         footer {
-            background: #111;
+            background: linear-gradient(to top, #111, var(--background-color));
             color: var(--text-color);
             text-align: center;
-            padding: 2.5rem 1rem;
-            margin-top: 3rem;
-            border-top: 3px solid var(--primary-color);
+            padding: 3rem 1rem;
+            margin-top: 4rem;
+            border-top: 4px solid var(--primary-color);
+            box-shadow: 0 -4px 20px var(--shadow-color);
         }
-
         footer h3 {
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
+            margin-bottom: 1.8rem;
+            font-size: 1.7rem;
             color: var(--primary-color);
+            text-shadow: 2px 2px 4px var(--shadow-color);
         }
-
         .btn {
             display: inline-block;
             background-color: var(--primary-color);
             color: var(--background-color);
-            padding: 0.8rem 1.8rem;
-            margin: 0.5rem;
-            border-radius: 8px;
+            padding: 1rem 2rem;
+            margin: 0.7rem;
+            border-radius: 10px;
             text-decoration: none;
             font-weight: 700;
-            transition: all 0.3s ease;
-            border: 1px solid var(--primary-color);
+            transition: all 0.4s ease;
+            border: 2px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+            animation: pulse 1.5s infinite;
         }
-
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+        .btn:hover::before {
+            left: 100%;
+        }
         .btn:hover {
             background-color: transparent;
             color: var(--primary-color);
-            transform: scale(1.05);
+            transform: scale(1.1);
+            animation: none;
         }
     </style>
 </head>
@@ -253,80 +313,74 @@
             محیطی کاملاً خانوادگی
         </div>
     </header>
-
     <nav>
         <div class="nav-full">
-    <a href="#chelo">🍛 چلو</a>
-    <a href="#kebab">🥩 کباب‌ها</a>
-    <a href="#breakfast">🍳 صبحانه</a>
-    <a href="#kebab-kateh">🍽️ کته کباب</a>
-    <a href="#cold-drinks">🥤 نوشیدنی سرد</a>
-    <a href="#hot-drinks">☕ نوشیدنی گرم</a>
-    <a href="#starters">🥗 پیش غذا</a>
-    <a href="#kateh">🍚 کته</a>
-    <a href="#ghalyan">💨 قلیان</a>
-</div>
+            <a href="#chelo">🍛 چلو</a>
+            <a href="#kebab">🥩 کباب‌ها</a>
+            <a href="#breakfast">🍳 صبحانه</a>
+            <a href="#kebab-kateh">🍽️ کته کباب</a>
+            <a href="#cold-drinks">🥤 نوشیدنی سرد</a>
+            <a href="#hot-drinks">☕ نوشیدنی گرم</a>
+            <a href="#starters">🥗 پیش غذا</a>
+            <a href="#kateh">🍚 کته</a>
+            <a href="#ghalyan">💨 قلیان</a>
+        </div>
         <div class="nav-active-category hidden">
             <span id="active-category-name"></span>
             <button id="back-to-menu">بازگشت به منوی کامل</button>
         </div>
     </nav>
-
     <div class="container">
         <section id="chelo">
-    <h2>چلو</h2>
-    <ul>
-        <li><span>اکبر جوجه</span><span class="price" data-empty="true">——</span></li>
-        <li><span>زرشک پلو با مرغ</span><span class="price" data-empty="true">——</span></li>
-        <li><span>کشمش پلو با مرغ</span><span class="price" data-empty="true">——</span></li>
-        <li><span>چلو گوشت</span><span class="price" data-empty="true">——</span></li>
-        <li><span>چلو گردن</span><span class="price" data-empty="true">——</span></li>
-        <li><span>اردک شکم پر</span><span class="price" data-empty="true">——</span></li>
-        <li><span>چلو قیمه</span><span class="price" data-empty="true">——</span></li>
-        <li><span>چلو قرمه</span><span class="price" data-empty="true">——</span></li>
-        <li><span>ته چین مرغ</span><span class="price" data-empty="true">——</span></li>
-        <li><span>ته چین گوشت</span><span class="price" data-empty="true">——</span></li>
-    </ul>
-</section>
-
+            <h2>چلو</h2>
+            <ul>
+                <li><span>اکبر جوجه</span><span class="price" data-empty="true">——</span></li>
+                <li><span>زرشک پلو با مرغ</span><span class="price" data-empty="true">——</span></li>
+                <li><span>کشمش پلو با مرغ</span><span class="price" data-empty="true">——</span></li>
+                <li><span>چلو گوشت</span><span class="price" data-empty="true">——</span></li>
+                <li><span>چلو گردن</span><span class="price" data-empty="true">——</span></li>
+                <li><span>اردک شکم پر</span><span class="price" data-empty="true">——</span></li>
+                <li><span>چلو قیمه</span><span class="price" data-empty="true">——</span></li>
+                <li><span>چلو قرمه</span><span class="price" data-empty="true">——</span></li>
+                <li><span>ته چین مرغ</span><span class="price" data-empty="true">——</span></li>
+                <li><span>ته چین گوشت</span><span class="price" data-empty="true">——</span></li>
+            </ul>
+        </section>
         <section id="kebab">
-    <h2>کباب‌ها</h2>
-    <ul>
-        <li><span>کباب کوبیده</span><span class="price" data-empty="true">——</span></li>
-        <li><span>جوجه ران زعفرانی</span><span class="price" data-empty="true">——</span></li>
-        <li><span>جوجه سینه زعفرانی</span><span class="price" data-empty="true">——</span></li>
-        <li><span>جگر دنبه</span><span class="price" data-empty="true">——</span></li>
-        <li><span>چنجه بره</span><span class="price" data-empty="true">——</span></li>
-        <li><span>شیشلیک بره</span><span class="price" data-empty="true">——</span></li>
-        <li><span>قارچ کبابی</span><span class="price" data-empty="true">——</span></li>
-        <li><span>گوجه کبابی</span><span class="price" data-empty="true">——</span></li>
-        <li><span>ماهی کبابی قزل آلا</span><span class="price" data-empty="true">——</span></li>
-    </ul>
-</section>
-
+            <h2>کباب‌ها</h2>
+            <ul>
+                <li><span>کباب کوبیده</span><span class="price" data-empty="true">——</span></li>
+                <li><span>جوجه ران زعفرانی</span><span class="price" data-empty="true">——</span></li>
+                <li><span>جوجه سینه زعفرانی</span><span class="price" data-empty="true">——</span></li>
+                <li><span>جگر دنبه</span><span class="price" data-empty="true">——</span></li>
+                <li><span>چنجه بره</span><span class="price" data-empty="true">——</span></li>
+                <li><span>شیشلیک بره</span><span class="price" data-empty="true">——</span></li>
+                <li><span>قارچ کبابی</span><span class="price" data-empty="true">——</span></li>
+                <li><span>گوجه کبابی</span><span class="price" data-empty="true">——</span></li>
+                <li><span>ماهی کبابی قزل آلا</span><span class="price" data-empty="true">——</span></li>
+            </ul>
+        </section>
         <section id="breakfast">
-    <h2>صبحانه</h2>
-    <ul>
-        <li><span>املت</span><span class="price" data-empty="true">——</span></li>
-        <li><span>نیمرو</span><span class="price" data-empty="true">——</span></li>
-        <li><span>جغول بغول</span><span class="price" data-empty="true">——</span></li>
-        <li><span>سوسیس تخم مرغ</span><span class="price" data-empty="true">——</span></li>
-        <li><span>دیزی</span><span class="price" data-empty="true">——</span></li>
-        <li><span>کشک بادمجان</span><span class="price" data-empty="true">——</span></li>
-    </ul>
-</section>
-
+            <h2>صبحانه</h2>
+            <ul>
+                <li><span>املت</span><span class="price" data-empty="true">——</span></li>
+                <li><span>نیمرو</span><span class="price" data-empty="true">——</span></li>
+                <li><span>جغول بغول</span><span class="price" data-empty="true">——</span></li>
+                <li><span>سوسیس تخم مرغ</span><span class="price" data-empty="true">——</span></li>
+                <li><span>دیزی</span><span class="price" data-empty="true">——</span></li>
+                <li><span>کشک بادمجان</span><span class="price" data-empty="true">——</span></li>
+            </ul>
+        </section>
         <section id="kebab-kateh">
-    <h2>کته کباب</h2>
-    <ul>
-        <li><span>کته جوجه کباب</span><span class="price" data-empty="true">——</span></li>
-        <li><span>کته کباب کوبیده</span><span class="price" data-empty="true">——</span></li>
-        <li><span>کته ماهی قزل آلا</span><span class="price" data-empty="true">——</span></li>
-        <li><span>کته کباب ماهی قزل آلا</span><span class="price" data-empty="true">——</span></li>
-        <li><span>کته کباب چنجه</span><span class="price" data-empty="true">——</span></li>
-    </ul>
-</section>
-
+            <h2>کته کباب</h2>
+            <ul>
+                <li><span>کته جوجه کباب</span><span class="price" data-empty="true">——</span></li>
+                <li><span>کته کباب کوبیده</span><span class="price" data-empty="true">——</span></li>
+                <li><span>کته ماهی قزل آلا</span><span class="price" data-empty="true">——</span></li>
+                <li><span>کته کباب ماهی قزل آلا</span><span class="price" data-empty="true">——</span></li>
+                <li><span>کته کباب چنجه</span><span class="price" data-empty="true">——</span></li>
+            </ul>
+        </section>
         <section id="cold-drinks">
             <h2>نوشیدنی سرد</h2>
             <ul>
@@ -340,7 +394,6 @@
                 <li><span>تکدانه آلبالو</span><span class="price" data-empty="true">——</span></li>
             </ul>
         </section>
-
         <section id="hot-drinks">
             <h2>نوشیدنی گرم</h2>
             <ul>
@@ -353,7 +406,6 @@
                 <li><span>چای نبات</span><span class="price" data-empty="true">——</span></li>
             </ul>
         </section>
-
         <section id="starters">
             <h2>پیش غذا</h2>
             <ul>
@@ -366,51 +418,47 @@
                 <li><span>سالاد شیرازی</span><span class="price" data-empty="true">——</span></li>
             </ul>
         </section>
-
         <section id="kateh">
-    <h2>کته</h2>
-    <ul>
-        <li><span>کته ساده</span><span class="price" data-empty="true">——</span></li>
-        <li><span>کته کشمش</span><span class="price" data-empty="true">——</span></li>
-        <li><span>کته زرشک</span><span class="price" data-empty="true">——</span></li>
-        <li><span>کته سبزی</span><span class="price" data-empty="true">——</span></li>
-    </ul>
-</section>
-
+            <h2>کته</h2>
+            <ul>
+                <li><span>کته ساده</span><span class="price" data-empty="true">——</span></li>
+                <li><span>کته کشمش</span><span class="price" data-empty="true">——</span></li>
+                <li><span>کته زرشک</span><span class="price" data-empty="true">——</span></li>
+                <li><span>کته سبزی</span><span class="price" data-empty="true">——</span></li>
+            </ul>
+        </section>
         <section id="ghalyan">
-    <h2>قلیان | سرویس</h2>
-    <ul>
-        <li><span>سرویس کامل</span><span class="price" data-empty="true">——</span></li>
-        <li><span>سرویس کامل ویژه</span><span class="price" data-empty="true">——</span></li>
-        <li><span>دو سیب</span><span class="price" data-empty="true">——</span></li>
-        <li><span>سیب آلبالو</span><span class="price" data-empty="true">——</span></li>
-        <li><span>سیب یخ</span><span class="price" data-empty="true">——</span></li>
-        <li><span>پرتغال</span><span class="price" data-empty="true">——</span></li>
-        <li><span>پرتغال نعنا</span><span class="price" data-empty="true">——</span></li>
-        <li><span>پرتغال خامه</span><span class="price" data-empty="true">——</span></li>
-        <li><span>لیمو</span><span class="price" data-empty="true">——</span></li>
-        <li><span>لیمو نعنا</span><span class="price" data-empty="true">——</span></li>
-        <li><span>بلوبری</span><span class="price" data-empty="true">——</span></li>
-        <li><span>شب های مسکو</span><span class="price" data-empty="true">——</span></li>
-        <li><span>love | لاو</span><span class="price" data-empty="true">——</span></li>
-        <li><span>آدامس دارچین</span><span class="price" data-empty="true">——</span></li>
-    </ul>
-</section>
+            <h2>قلیان | سرویس</h2>
+            <ul>
+                <li><span>سرویس کامل</span><span class="price" data-empty="true">——</span></li>
+                <li><span>سرویس کامل ویژه</span><span class="price" data-empty="true">——</span></li>
+                <li><span>دو سیب</span><span class="price" data-empty="true">——</span></li>
+                <li><span>سیب آلبالو</span><span class="price" data-empty="true">——</span></li>
+                <li><span>سیب یخ</span><span class="price" data-empty="true">——</span></li>
+                <li><span>پرتغال</span><span class="price" data-empty="true">——</span></li>
+                <li><span>پرتغال نعنا</span><span class="price" data-empty="true">——</span></li>
+                <li><span>پرتغال خامه</span><span class="price" data-empty="true">——</span></li>
+                <li><span>لیمو</span><span class="price" data-empty="true">——</span></li>
+                <li><span>لیمو نعنا</span><span class="price" data-empty="true">——</span></li>
+                <li><span>بلوبری</span><span class="price" data-empty="true">——</span></li>
+                <li><span>شب های مسکو</span><span class="price" data-empty="true">——</span></li>
+                <li><span>love | لاو</span><span class="price" data-empty="true">——</span></li>
+                <li><span>آدامس دارچین</span><span class="price" data-empty="true">——</span></li>
+            </ul>
+        </section>
     </div>
-
-<footer>
-    <h3>📞 ارتباط با ما</h3>
-    <p>
-        <a href="tel:+989113249336" class="btn btn-large">📱 09113249336 | اکبری</a>
-        <a href="tel:+989113247881" class="btn">📱 09113247881 | کاظمی</a>
-    </p>
-    <p>
-        <a class="btn" href="https://maps.app.goo.gl/YibM9d2HmYuEEATL8?g_st=ac" target="_blank">📍 مسیریابی در گوگل</a>
-        <a class="btn" href="https://nshn.ir/87rb1uSlQFGW-G" target="_blank">🗺️ مسیریابی در نشان</a>
-        <a class="btn" href="instagram://user?username=coffe_resturan_polshahpor" target="_blank">📷 اینستاگرام</a>
-    </p>
-</footer>
-
+    <footer>
+        <h3>📞 ارتباط با ما</h3>
+        <p>
+            <a href="tel:+989113249336" class="btn btn-large">📱 09113249336 | اکبری</a>
+            <a href="tel:+989113247881" class="btn">📱 09113247881 | کاظمی</a>
+        </p>
+        <p>
+            <a class="btn" href="https://maps.app.goo.gl/YibM9d2HmYuEEATL8?g_st=ac" target="_blank">📍 مسیریابی در گوگل</a>
+            <a class="btn" href="https://nshn.ir/87rb1uSlQFGW-G" target="_blank">🗺️ مسیریابی در نشان</a>
+            <a class="btn" href="instagram://user?username=coffe_resturan_polshahpor" target="_blank">📷 اینستاگرام</a>
+        </p>
+    </footer>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const nav = document.querySelector('nav');
@@ -420,45 +468,42 @@
             const backToMenuBtn = document.getElementById('back-to-menu');
             const navLinks = document.querySelectorAll('.nav-full a');
             const sections = document.querySelectorAll('section');
-
             let isFullNavVisible = true;
 
-            // تابع برای تغییر حالت نمایش نوار
+            // Function to show active category view
             function showActiveCategoryView(categoryName) {
                 if (isFullNavVisible) {
                     navFull.classList.add('fade-out');
-                    
                     setTimeout(() => {
                         navFull.classList.add('hidden');
                         navActiveCategory.classList.remove('hidden');
                         navActiveCategory.classList.remove('fade-out');
                         isFullNavVisible = false;
-                    }, 300); // مطابق با زمان انیمیشن
+                    }, 400); // Match animation time
                 }
                 activeCategoryName.innerHTML = categoryName;
             }
 
+            // Function to show full nav view
             function showFullNavView() {
                 if (!isFullNavVisible) {
                     navActiveCategory.classList.add('fade-out');
-
                     setTimeout(() => {
                         navActiveCategory.classList.add('hidden');
                         navFull.classList.remove('hidden');
                         navFull.classList.remove('fade-out');
                         isFullNavVisible = true;
-                    }, 300);
+                    }, 400);
                 }
             }
 
-            // کلیک روی دکمه بازگشت
+            // Back button click
             backToMenuBtn.addEventListener('click', () => {
                 showFullNavView();
-                 // به بالای صفحه اسکرول کن
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
-            
-            // کلیک روی لینک‌های منو
+
+            // Nav links click
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     const categoryName = this.innerHTML;
@@ -466,47 +511,38 @@
                 });
             });
 
-            // تشخیص بخش فعال هنگام اسکرول با Intersection Observer
+            // Intersection Observer for sections
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
-                threshold: 0.4 // وقتی 40% بخش دیده شد، فعال شود
+                threshold: 0.4
             };
-
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const link = document.querySelector(`.nav-full a[href="#${entry.target.id}"]`);
                         if (link) {
                             showActiveCategoryView(link.innerHTML);
-                            // فعال کردن لینک در منوی کامل (برای وقتی که کاربر برمی‌گردد)
                             navLinks.forEach(l => l.classList.remove('active'));
                             link.classList.add('active');
                         }
+                        entry.target.classList.add('visible');
                     }
                 });
             }, observerOptions);
-
             sections.forEach(section => {
                 observer.observe(section);
             });
-            
-            // اگر کاربر به بالای صفحه اسکرول کرد، منوی کامل را نشان بده
+
+            // Observer for header to show full nav
             const headerObserver = new IntersectionObserver((entries) => {
                 if (entries[0].isIntersecting) {
                     showFullNavView();
                     navLinks.forEach(l => l.classList.remove('active'));
                 }
             }, { threshold: 0.9 });
-
             headerObserver.observe(document.querySelector('header'));
         });
     </script>
 </body>
 </html>
-
-
-
-
-
-
